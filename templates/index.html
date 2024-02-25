@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <title>Calculator</title>
+</head>
+<body style="background-color: aqua;">
+  <h1 style="text-align:center">This is a simple calculator app</h1>
+  <div class="container pt-5">
+    <table class="table table-bordered table-dark" >
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">PK</th>
+          <th scope="col">First Variable</th>
+          <th scope="col">Second Variable</th>
+          <th scope="col">Operation</th>
+          <th scope="col">Result</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ i.int_a }}</td>
+          <td>{{ i.int_b }}</td>
+          <td>{{ i.algebra }}</td>
+          <td>{{ i.result }}</td>
+        </tr>
+        {% endfor %} 
+      </tbody>
+    </table>
+    <!-- End of table  -->
+
+    <!-- READ TWO VARIABLES FORM  -->
+
+    <form method="POST">   
+      {% csrf_token %} 
+      <div class="form-group">
+        <div class="col-md-2 col-lg-2">
+        <label for="Input">First Integer</label>
+        <input type="number" name='f_num' class="form-control" id="Input" aria-describedby="Help" placeholder="Enter number" min="-100" max="100">
+        <small id="Help" class="form-text text-muted">* -100 to +100 </small>
+      
+    </div>
+  </div>
+      <div class="form-group" style="height:105px">
+        <div class="col-md-2 col-lg-2">
+        <label for="Input">Second Integer</label>
+        <input type="number" name="s_num" class="form-control" id="exampleInput" aria-describedby="Help" placeholder="Enter number" min="-100" max="100">
+        <small id="Help" class="form-text text-muted">* -100 to +100 </small>
+      </div>
+    </div>
+
+      <!-- Operations field -->
+      <h5>Click the operation to perform </h5>
+      
+      <button type="submit" formaction="{% url 'add_num' %}" class="btn btn-primary" style="height:50px;margin-bottom: 5%;">+</button>
+      <button type="submit" formaction="{% url 'sub_num' %}" class="btn btn-primary" style="height:50px;margin-bottom: 5%;">-</button>
+      <button type="submit" formaction="{% url 'div_num' %}" class="btn btn-primary" style="height:50px;margin-bottom: 5%;">/</button>
+      <button type="submit" formaction="{% url 'mul_num' %}" class="btn btn-primary" style="height:50px;margin-bottom: 5%;">*</button>
+    </form>
+
+  </div>
+</body>
+</html>
